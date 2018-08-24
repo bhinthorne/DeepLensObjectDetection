@@ -21,7 +21,7 @@ Downloading all the data from S3 and putting it into a dataframe
 
 ##Downloads Detection Data from S3 Bucket and Puts it into a dataframe
 def download_json_data():
-    bucket_name = 'thumbs-up-output-3'
+    bucket_name = 'YOUR-BUCKET-NAME'
     keys = []
     times = []
     confs = []

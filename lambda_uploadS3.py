@@ -92,13 +92,13 @@ def write_image_to_s3(img, output, time, file_name):
     # You can contorl the size and quality of the image
     encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),90]
     _, jpg_data = cv2.imencode('.jpg', img, encode_param)
-    response = s3.put_object(Body=jpg_data.tostring(),Bucket='thumbs-up-output',Key=file_name)
-    response2 = s3.put_object(Body=json.dumps(output),Bucket='thumbs-up-output',Key=record)
+    response = s3.put_object(Body=jpg_data.tostring(),Bucket='YOUR-BUCKET-NAME',Key=file_name)
+    response2 = s3.put_object(Body=json.dumps(output),Bucket='YOUR-BUCKET-NAME',Key=record)
     #client.publish(topic=iot_topic, payload="Response: {}".format(response))
     client.publish(topic=iot_topic, payload="Response: {}".format(response2))
     client.publish(topic=iot_topic, payload="Data pushed to S3")
 
-    image_url = 'https://s3.amazonaws.com/thumbs-up-output/'+file_name
+    image_url = 'https://s3.amazonaws.com/YOUR-BUCKET-NAME/'+file_name
     return image_url
 
 def greengrass_infinite_infer_run():
@@ -216,7 +216,7 @@ def greengrass_infinite_infer_run():
             detection["objects"] = objects_det
             # add a link to the image to detections
             img_file_name = 'images/image_at_'+frame_time+'.jpg'
-            link = 'https://s3.amazonaws.com/thumbs-up-output/'+img_file_name
+            link = 'https://s3.amazonaws.com/YOUR-BUCKET-NAME/'+img_file_name
             detection["link_to_img"] = link
             # Upload to S3 to allow viewing the image in the browser, only if a detection was made
             if detection_made:

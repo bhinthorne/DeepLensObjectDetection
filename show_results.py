@@ -8,7 +8,7 @@ import matplotlib.image as mpimg
 #it also stores the data from the json files in a dictionary with key of 
 #a filename and object of another dictionary with the annotation data
 def download_training_data():
-    bucket_name = 'thumbs-up-output-3'
+    bucket_name = 'YOUR-BUCKET-NAME'
     client = boto3.client('s3')
     s3 = boto3.resource('s3')
     s3objects = client.list_objects_v2(Bucket=bucket_name)

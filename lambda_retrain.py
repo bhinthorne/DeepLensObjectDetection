@@ -98,16 +98,16 @@ def write_image_to_s3(img, output, time, file_name, devices, resized_img):
     encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),90]
     _, jpg_data = cv2.imencode('.jpg', img, encode_param)
     _, resized_data = cv2.imencode('.jpg',resized_img,encode_param)
-    response = s3.put_object(Body=jpg_data.tostring(),Bucket='thumbs-up-output-3',Key=file_name)
-    response2 = s3.put_object(Body=json.dumps(output),Bucket='thumbs-up-output-3',Key=record)
-    response3 = s3.put_object(Body=json.dumps(output),Bucket='thumbs-up-output-3',Key=latest)
-    response4 = s3.put_object(Body=resized_data.tostring(),Bucket='thumbs-up-output-3',Key=resized_image)
+    response = s3.put_object(Body=jpg_data.tostring(),Bucket='YOUR-BUCKET-NAME',Key=file_name)
+    response2 = s3.put_object(Body=json.dumps(output),Bucket='YOUR-BUCKET-NAME',Key=record)
+    response3 = s3.put_object(Body=json.dumps(output),Bucket='YOUR-BUCKET-NAME',Key=latest)
+    response4 = s3.put_object(Body=resized_data.tostring(),Bucket='YOUR-BUCKET-NAME',Key=resized_image)
     
     #client.publish(topic=iot_topic, payload="Response: {}".format(response))
     client.publish(topic=iot_topic, payload="Response: {}".format(response2))
     client.publish(topic=iot_topic, payload="Data pushed to S3")
 
-    image_url = 'https://s3.amazonaws.com/thumbs-up-output-3/'+file_name
+    image_url = 'https://s3.amazonaws.com/YOUR-BUCKET-NAME/'+file_name
     return image_url
     
 ##This method writes the training data to the s3 bucket
@@ -125,8 +125,8 @@ def write_training_data(raw_file_name, raw_img, train_annotation):
     # You can contorl the size and quality of the image
     encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),90]
     _, raw_data = cv2.imencode('.jpg', raw_img, encode_param)
-    raw_image_response = s3.put_object(Body=raw_data.tostring(),Bucket='thumbs-up-output-3',Key=raw_image_path)
-    annotation_response = s3.put_object(Body=json.dumps(train_annotation),Bucket='thumbs-up-output-3',Key=json_annotation_path)
+    raw_image_response = s3.put_object(Body=raw_data.tostring(),Bucket='YOUR-BUCKET-NAME',Key=raw_image_path)
+    annotation_response = s3.put_object(Body=json.dumps(train_annotation),Bucket='YOUR-BUCKET-NAME',Key=json_annotation_path)
 
 ##A method to create a annotation file from an inference in a frame
 ##to be reused for further training

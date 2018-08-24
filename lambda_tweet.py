@@ -20,7 +20,7 @@ messages = ["Coffee Time!",
 print('Loading function')
 
 def get_device():
-    bucket_name = 'thumbs-up-output-3'
+    bucket_name = 'YOUR-BUCKET-NAME'
     client = boto3.client('s3')
     s3objects = client.list_objects_v2(Bucket=bucket_name, StartAfter = 'latest/')
     for object in s3objects['Contents']:
